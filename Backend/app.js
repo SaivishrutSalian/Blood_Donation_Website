@@ -4,6 +4,7 @@ const app = express();
 const authRoute = require("./routes/auth");
 const donorRoute = require("./routes/donors");
 const prospectRoute = require("./routes/prospects");
+const orderRoute = require("./routes/orders");
 
 module.exports = app;
 
@@ -17,10 +18,4 @@ app.use(express.json());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/donors", donorRoute);
 app.use("/api/v1/prospects", prospectRoute);
-
-
-
-
-
-
-
+app.use("/api/v1/orders", orderRoute);

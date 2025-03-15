@@ -15,7 +15,7 @@ const DonorSchema= mongoose.Schema(
     status:{type:Number, default:0}
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 

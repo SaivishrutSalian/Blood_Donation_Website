@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood Order Request Approved</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        min-width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #222222;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 24px;
+      }
+
+      .divider {
+        border-top: 1px solid #ccc;
+        margin: 20px 0;
+      }
+
+      .email-wrapper {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+      }
+
+      .email-header {
+        background-color: #1e1e1e;
+        padding: 30px;
+        color: #fff;
+      }
+
+      .email-body {
+        padding: 14px;
+        background-color: #f4f3f3;
+      }
+
+      .email-footer {
+        background-color: #1e1e1e;
+        padding: 14px;
+        color: #ef5b5b;
+      }
+
+      img {
+        padding: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-header">
+        <img
+          src="https://res.cloudinary.com/dap91fhxh/image/upload/v1720958373/logo1_ewwjxg.png"
+          height="100px"
+          width="400px"
+          alt="BloodBridge Logo"
+        />
+      </div>
+      <div class="email-body">
+        <h1>Blood Order Request Approved</h1>
+        <p>Hello <%= name %>,</p>
+        <p>Your blood order request has been approved. Here are the details of your order:</p>
+        <div class="divider"></div>
+        <p><strong>Blood Type:</strong> <%= bloodType %></p>
+        <p><strong>Units Required:</strong> <%= units %>L</p>
+        <p><strong>Urgency Level:</strong> <%= urgency %></p>
+        <div class="divider"></div>
+        <p>Please visit our center with this email confirmation to collect your blood order.</p>
+        <p><strong>Collection Center Details:</strong></p>
+        <p>Location: Blood Bank Center</p>
+        <p>Address: 123 Main Street, Cityville</p>
+        <p>Operating Hours: 9:00 AM - 5:00 PM</p>
+        <p>Contact: (123) 456-7890</p>
+        
+        <img
+          src="https://res.cloudinary.com/dap91fhxh/image/upload/v1720957791/hero1_trpojy.jpg"
+          alt="Blood Donation"
+          height="250px"
+          width="500px"
+        />
+      </div>
+      <div class="email-footer">
+        <p>
+          If you have any questions, please don't hesitate to contact us at
+          <a href="mailto:support@bloodbridge.com">support@bloodbridge.com</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

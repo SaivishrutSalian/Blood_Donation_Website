@@ -7,6 +7,7 @@ const { sendDetailsProspectEmail } = require("./EmailService/sendDetailsProspect
 const { sendElibilityEmail } = require("./EmailService/sendEligibilityEmail");
 const { sendDetailsDonorEmail } = require("./EmailService/sendDonorDetailsEmail");
 const { sendBloodDonationReminder } = require("./EmailService/sendBloodDonationReminder");
+const { sendOrderApprovalEmail } = require("./EmailService/sendOrderApprovalEmail");
 
 dotenv.config();
 
@@ -17,6 +18,10 @@ const run = () => {
         sendDetailsDonorEmail();
         sendBloodDonationReminder();
         
+    });
+
+    cron.schedule("*/30 * * * * *", () => {
+        sendOrderApprovalEmail();
     });
   };
   

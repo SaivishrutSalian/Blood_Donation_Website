@@ -4,13 +4,14 @@ const Donor = require("../models/Donor");
 
 const createDonor = async (req, res) => {
     try {
-      const newDonor = Donor(req.body);
-      const donor = await newDonor.save();
-      res.status(201).json(donor);
+        const donors = Array.isArray(req.body) ? req.body : [req.body]; // Ensure it's an array
+        const savedDonors = await Donor.insertMany(donors);
+        res.status(201).json(savedDonors);
     } catch (error) {
-      res.status(500).json(error);
+        res.status(500).json({ message: "Error adding donors", error });
     }
-  };
+};
+
 
 // Get all donors
 const getAllDonors = async (req, res) => {

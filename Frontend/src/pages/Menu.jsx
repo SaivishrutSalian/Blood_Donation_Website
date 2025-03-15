@@ -11,175 +11,109 @@ import {
   FaHome,
   FaUser,
   FaUsers,
+  FaAngleRight,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Menu = () => {
-  // State to track active link
   const [activeLink, setActiveLink] = useState("/admin");
+  const [isHovered, setIsHovered] = useState("");
 
-  // Function to handle link click
   const handleLinkClick = (link) => {
     setActiveLink(link);
   };
 
+  const menuItems = [
+    {
+      title: "Main",
+      items: [
+        { name: "Home", icon: FaHome, path: "/admin" },
+        { name: "Profile", icon: FaUser, path: "/profile" }
+      ]
+    },
+    {
+      title: "Management",
+      items: [
+        { name: "Donors", icon: FaBox, path: "/admin/donors" },
+        { name: "Prospects", icon: FaUsers, path: "/admin/prospects" },
+        { name: "Orders", icon: FaClipboardList, path: "/admin/orders" }
+      ]
+    },
+    {
+      title: "System",
+      items: [
+        { name: "Elements", icon: FaElementor, path: "/elements" },
+        { name: "Settings", icon: FaCog, path: "/settings" },
+        { name: "Backups", icon: FaHdd, path: "/backups" }
+      ]
+    },
+    {
+      title: "Analytics",
+      items: [
+        { name: "Charts", icon: FaChartBar, path: "/charts" },
+        { name: "Logs", icon: FaClipboard, path: "/logs" },
+        { name: "Calendar", icon: FaCalendarAlt, path: "/calendar" }
+      ]
+    }
+  ];
+
   return (
-    <div className=" h-auto bg-gray-100 p-[20px] w-[350px] shadow-lg">
-      <ul className="flex flex-col items-start justify-start mt-[20px] pl-[20px]">
-        <Link to="/admin" onClick={() => handleLinkClick("/admin")}>
-          <li
-            className={`flex items-center  text-[20px]  cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/admin"
-                ? "bg-red-300 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaHome
-              className={`mr-[15px] ${
-                activeLink === "/admin" ? "text-white" : "text-red-500"
-              } `}
-            />
-            Home
-          </li>
-        </Link>
-        <Link to="/profile" onClick={() => handleLinkClick("/profile")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/profile"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaUser className="mr-[15px] text-red-500" />
-            Profile
-          </li>
-        </Link>
-        <hr className="w-full my-[20px] border-gray-300" />
-        <Link
-          to="/admin/donors"
-          onClick={() => handleLinkClick("/admin/donors")}
-        >
-          <li
-            className={`flex items-center  text-[20px]  cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/admin/donors"
-                ? "bg-red-300 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaBox
-              className={`mr-[15px] ${
-                activeLink === "/admin/donors" ? "text-white" : "text-red-500"
-              } `}
-            />
-            Donors
-          </li>
-        </Link>
-        <Link
-          to="/admin/prospects"
-          onClick={() => handleLinkClick("/admin/prospects")}
-        >
-          <li
-            className={`flex items-center  text-[20px]  cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/admin/prospects"
-                ? "bg-red-300 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaUsers
-              className={`mr-[15px] ${
-                activeLink === "/admin/prospects" ? "text-white" : "text-red-500"
-              } `}
-            />
-            Prospects
-          </li>
-        </Link>
-        <Link to="/orders" onClick={() => handleLinkClick("/orders")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/orders"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaClipboardList className="mr-[15px] text-red-500" />
-            Orders
-          </li>
-        </Link>
-        <hr className="w-full my-[20px] border-gray-300" />
-        <Link to="/elements" onClick={() => handleLinkClick("/elements")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/elements"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaElementor className="mr-[15px] text-red-500" />
-            Elements
-          </li>
-        </Link>
-        <Link to="/settings" onClick={() => handleLinkClick("/settings")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/settings"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaCog className="mr-[15px] text-red-500" />
-            Settings
-          </li>
-        </Link>
-        <Link to="/backups" onClick={() => handleLinkClick("/backups")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/backups"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaHdd className="mr-[15px] text-red-500" />
-            Backups
-          </li>
-        </Link>
-        <hr className="w-full my-[20px] border-gray-300" />
-        <Link to="/charts" onClick={() => handleLinkClick("/charts")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/charts"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaChartBar className="mr-[15px] text-red-500" />
-            Charts
-          </li>
-        </Link>
-        <Link to="/logs" onClick={() => handleLinkClick("/logs")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/logs"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaClipboard className="mr-[15px] text-red-500" />
-            All logs
-          </li>
-        </Link>
-        <Link to="/calendar" onClick={() => handleLinkClick("/calendar")}>
-          <li
-            className={`flex items-center text-gray-800 text-[20px] hover:text-yellow-400 cursor-pointer mt-[20px] transition-colors duration-300 ${
-              activeLink === "/calendar"
-                ? "bg-red-400 p-[10px] w-[200px] text-white"
-                : ""
-            }`}
-          >
-            <FaCalendarAlt className="mr-[15px] text-red-500" />
-            Calendar
-          </li>
-        </Link>
-      </ul>
+    <div className="h-screen bg-gray-900 shadow-xl w-[300px] transition-all duration-300">
+      <div className="p-6 border-b border-gray-800">
+        <h1 className="text-2xl font-bold text-red-500">Blood Bank</h1>
+        <p className="text-sm text-gray-400 mt-1">Admin Dashboard</p>
+      </div>
+
+      <div className="py-4">
+        {menuItems.map((section, idx) => (
+          <div key={idx} className="mb-6">
+            <h2 className="px-6 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              {section.title}
+            </h2>
+            {section.items.map((item) => (
+              <Link 
+                key={item.path}
+                to={item.path}
+                onClick={() => handleLinkClick(item.path)}
+                onMouseEnter={() => setIsHovered(item.path)}
+                onMouseLeave={() => setIsHovered("")}
+              >
+                <div
+                  className={`flex items-center px-6 py-3 cursor-pointer transition-all duration-200
+                    ${activeLink === item.path 
+                      ? "bg-gradient-to-r from-red-600 to-red-700 text-white" 
+                      : "hover:bg-gray-800"
+                    }
+                    ${isHovered === item.path ? "shadow-lg shadow-red-900/20" : ""}
+                  `}
+                >
+                  <item.icon 
+                    className={`w-5 h-5 ${
+                      activeLink === item.path 
+                        ? "text-white" 
+                        : "text-red-500"
+                    }`}
+                  />
+                  <span className={`ml-4 text-sm font-medium ${
+                    activeLink === item.path 
+                      ? "text-white"
+                      : "text-gray-300" 
+                  }`}>
+                    {item.name}
+                  </span>
+                  <FaAngleRight 
+                    className={`ml-auto transition-transform duration-200 ${
+                      activeLink === item.path || isHovered === item.path
+                        ? "opacity-100 transform translate-x-1"
+                        : "opacity-0"
+                    } ${activeLink === item.path ? "text-white" : "text-red-500"}`}
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

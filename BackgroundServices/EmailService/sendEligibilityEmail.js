@@ -16,7 +16,7 @@ const sendElibilityEmail = async () => {
           let messageoption = {
             from: process.env.EMAIL,
             to: prospect.email,
-            subject: "Blood Bridge, Blood Donation Eligibility.",
+            subject: "Blood Bridge, LifeSource Eligibility.",
             html: data,
           };
 

@@ -28,7 +28,7 @@ const sendDetailsDonorEmail = async () => {
           let messageoption = {
             from: process.env.EMAIL,
             to: donor.email,
-            subject: "Hello, Blood Bridge Donor.",
+            subject: "Hello, LifeSource Donor.",
             html: data,
           };
 

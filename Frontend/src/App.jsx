@@ -8,6 +8,9 @@ import Prospects from "./pages/Prospects";
 import NewDonor from "./pages/NewDonor";
 import Donor from "./pages/Donor";
 import Prospect from "./pages/Prospect";
+import BloodAvailability from "./pages/BloodAvailability"; // Import the new page
+import Orders from "./pages/Orders";
+import Order from "./pages/Order";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -31,41 +34,19 @@ function App() {
       path: "/admin",
       element: user.currentUser ? <Layout /> : <Navigate to="/login"/>,
       children: [
-        {
-          path: "/admin",
-          element: <Admin />,
-        },
-        {
-          path: "/admin/donors",
-          element: <Donors />,
-        },
-        {
-          path: "/admin/prospects",
-          element: <Prospects />,
-        },
-        {
-          path: "/admin/newdonor",
-          element: <NewDonor />,
-        },
-        {
-          path: "/admin/donor/:id",
-          element: <Donor />,
-        },
-
-        {
-          path: "/admin/prospect/:id",
-          element: <Prospect />,
-        },
+        { path: "/admin", element: <Admin /> },
+        { path: "/admin/donors", element: <Donors /> },
+        { path: "/admin/prospects", element: <Prospects /> },
+        { path: "/admin/orders", element: <Orders /> },
+        { path: "/admin/newdonor", element: <NewDonor /> },
+        { path: "/admin/donor/:id", element: <Donor /> },
+        { path: "/admin/prospect/:id", element: <Prospect /> },
+        { path: "/admin/order/:id", element: <Order /> },
       ],
     },
-    {
-      path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
+    { path: "/", element: <Home /> },
+    { path: "/login", element: <Login /> },
+    { path: "/blood-availability", element: <BloodAvailability /> }, // Add the new route
   ]);
 
   return (

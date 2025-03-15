@@ -34,7 +34,7 @@ const getOneProspect = async (req, res) => {
   };
 
 
-  // Delete a donor
+  // Delete a prospect
 
 const deleteProspect = async (req, res) => {
     try {
