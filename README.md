@@ -52,4 +52,6 @@ cd Frontend
 npm run dev
 ```
 
+### Also start the Mongo server
+
 ### To register a user for the admin page, I have used the postman to register the admin details into the database.
