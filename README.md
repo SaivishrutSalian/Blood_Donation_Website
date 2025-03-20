@@ -25,8 +25,6 @@ DB=your_database_connection_string_here
 ```
 .env in BackgroundServices:
 ```.env
-plaintext
-Copy
 DB=your_database_connection_string_here
 PORT=your_port_here
 EMAIL=your_email_here
