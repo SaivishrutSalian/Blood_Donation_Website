@@ -13,7 +13,7 @@ const BloodAvailability = () => {
       try {
         const response = await fetch("http://localhost:8000/api/v1/donors");
         if (!response.ok) {
-          throw new Error("Failed to fetch blood availability data");
+          throw new Error("Failed to fetch donor availability data");
         }
         const data = await response.json();
         setDonors(data);
@@ -49,7 +49,7 @@ const BloodAvailability = () => {
         <Link to="/">
           <img src="/logo1.png" alt="Logo" className="w-20 cursor-pointer" />
         </Link>
-        <h1 className="text-2xl font-bold ml-4">Blood Availability</h1>
+        <h1 className="text-2xl font-bold ml-4">Donor Availability</h1>
       </div>
 
       {/* Blood Group Filter Dropdown */}

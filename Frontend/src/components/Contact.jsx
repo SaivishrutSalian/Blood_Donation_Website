@@ -58,7 +58,77 @@ const Contact = () => {
       return;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(inputs.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Phone validation (10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(inputs.tel)) {
+      toast.error("Phone number must be exactly 10 digits.");
+      return;
+    }
+
+    // Age validation (above 18)
+    if (parseInt(inputs.age) < 18) {
+      toast.error("You must be at least 18 years old to register as a donor.");
+      return;
+    }
+
+    // Weight validation (50-100 kg)
+    const weight = parseFloat(inputs.weight);
+    if (weight < 50 || weight > 100) {
+      toast.error("Weight must be between 50 and 100 kg.");
+      return;
+    }
+
     try {
+      // Check for duplicates in prospects database
+      const prospectResponse = await publicRequest.get('/prospects/check-duplicate', {
+        params: {
+          email: inputs.email,
+          tel: inputs.tel,
+          name: inputs.name
+        }
+      });
+
+      // Check for duplicates in orders database
+      const orderResponse = await publicRequest.get('/orders/check-duplicate', {
+        params: {
+          email: inputs.email,
+          tel: inputs.tel,
+          name: inputs.name
+        }
+      });
+
+      // Check for duplicates in donors database
+      const donorResponse = await publicRequest.get('/donors/check-duplicate', {
+        params: {
+          email: inputs.email,
+          tel: inputs.tel,
+          name: inputs.name
+        }
+      });
+
+      if (prospectResponse.data.exists) {
+        toast.error("You are already registered as a prospect donor.");
+        return;
+      }
+
+      if (orderResponse.data.exists) {
+        toast.error("This information is already associated with a blood order request.");
+        return;
+      }
+
+      if (donorResponse.data.exists) {
+        toast.error("You are already registered as a donor.");
+        return;
+      }
+
+      // If no duplicates found, proceed with registration
       await publicRequest.post("/prospects", inputs);
       toast.success("You have been successfully saved to the database.");
       setInputs({
@@ -72,7 +142,7 @@ const Contact = () => {
         diseases: "",
       });
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
     }
   };
 
@@ -96,10 +166,10 @@ const Contact = () => {
       return;
     }
 
-    // Phone validation
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    // Phone validation (10 digits)
+    const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(orderInputs.tel)) {
-      toast.error("Please enter a valid phone number.");
+      toast.error("Contact number must be exactly 10 digits.");
       return;
     }
 
@@ -110,6 +180,20 @@ const Contact = () => {
     }
 
     try {
+      // Check for duplicates in orders database
+      const orderResponse = await publicRequest.get('/orders/check-duplicate', {
+        params: {
+          email: orderInputs.email,
+          tel: orderInputs.tel,
+          name: orderInputs.name
+        }
+      });
+
+      if (orderResponse.data.exists) {
+        toast.error("You already have a pending blood order request.");
+        return;
+      }
+
       const res = await publicRequest.post("/orders", orderInputs);
       if (res.data) {
         toast.success("Your blood order request has been submitted successfully.");
@@ -365,14 +449,14 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">Units Required (in Liters) *</label>
+                  <label className="text-sm font-semibold text-gray-700">Units Required  *</label>
                   <input
                     type="number"
                     name="units"
                     value={orderInputs.units}
                     onChange={handleOrderChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 outline-none"
-                    placeholder="Enter units in liters"
+                    placeholder="Enter units"
                     step="0.1"
                     min="0.1"
                   />

@@ -50,7 +50,7 @@ const Order = () => {
             <strong className="font-semibold">Blood Type:</strong> {order.bloodType}
           </li>
           <li className="mt-[5px]">
-            <strong className="font-semibold">Units Required:</strong> {order.units}L
+            <strong className="font-semibold">Units Required:</strong> {order.units}
           </li>
           <li className="mt-[5px]">
             <strong className="font-semibold">Urgency Level:</strong> {order.urgency}

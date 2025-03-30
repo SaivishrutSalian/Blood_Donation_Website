@@ -7,6 +7,7 @@ const {
   getOneDonor,
   deleteDonor,
   getBloodGroupStatistics,
+  checkDuplicate,
 } = require("../controllers/donors");
 
 const {
@@ -36,5 +37,9 @@ router.delete("/:id", deleteDonor);
 // STATS DONOR
 
 router.get("/stats", getBloodGroupStatistics);
+
+// CHECK DUPLICATE
+
+router.get("/check-duplicate", checkDuplicate);
 
 module.exports = router;

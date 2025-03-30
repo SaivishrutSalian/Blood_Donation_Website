@@ -78,12 +78,38 @@ const deleteDonor = async (req, res) => {
     }
   };
 
+  // Add this new controller function
+  const checkDuplicate = async (req, res) => {
+    try {
+      const { email, tel, name } = req.query;
+      
+      const existingDonor = await Donor.findOne({
+        $or: [
+          { email: email },
+          { tel: tel },
+          { name: name }
+        ]
+      });
+
+      return res.status(200).json({
+        exists: !!existingDonor,
+        message: existingDonor ? 'Duplicate donor found' : 'No duplicate found'
+      });
+    } catch (error) {
+      return res.status(500).json({
+        exists: false,
+        message: error.message || 'Error checking for duplicates'
+      });
+    }
+  };
+
   module.exports = {
     deleteDonor,
     getOneDonor,
     updateDonor,
     getAllDonors,
     createDonor,
-    getBloodGroupStatistics
+    getBloodGroupStatistics,
+    checkDuplicate
   };
   

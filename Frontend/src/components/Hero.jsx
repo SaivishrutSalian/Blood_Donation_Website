@@ -58,7 +58,7 @@ const Hero = () => {
               onClick={() => navigate('/blood-availability')}
               className="w-full bg-green-600 hover:bg-green-700 px-6 py-4 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 transition duration-300"
             >
-              Blood Availability
+              Donor Availability
             </button>
 
             <button

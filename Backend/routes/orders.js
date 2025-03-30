@@ -5,7 +5,8 @@ const {
   getAllOrders,
   getOneOrder,
   deleteOrder,
-  updateOrder
+  updateOrder,
+  checkDuplicate
 } = require("../controllers/orders");
 
 // ADD ORDER
@@ -22,5 +23,8 @@ router.put("/:id", updateOrder);
 
 // DELETE ORDER
 router.delete("/:id", deleteOrder);
+
+// Check-duplicate route
+router.get("/check-duplicate", checkDuplicate);
 
 module.exports = router;

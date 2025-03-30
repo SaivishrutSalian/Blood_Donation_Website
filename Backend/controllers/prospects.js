@@ -45,11 +45,36 @@ const deleteProspect = async (req, res) => {
     }
   };
 
+// Add this new controller function
+const checkDuplicate = async (req, res) => {
+  try {
+    const { email, tel, name } = req.query;
+    
+    const existingProspect = await Prospect.findOne({
+      $or: [
+        { email: email },
+        { tel: tel },
+        { name: name }
+      ]
+    });
 
-  module.exports = {
-    deleteProspect,
-    getOneProspect,
-    getAllProspects,
-    createProspect,
-  };
+    return res.status(200).json({
+      exists: !!existingProspect,
+      message: existingProspect ? 'Duplicate entry found' : 'No duplicate found'
+    });
+  } catch (error) {
+    return res.status(500).json({
+      exists: false,
+      message: error.message || 'Error checking for duplicates'
+    });
+  }
+};
+
+module.exports = {
+  deleteProspect,
+  getOneProspect,
+  getAllProspects,
+  createProspect,
+  checkDuplicate
+};
   

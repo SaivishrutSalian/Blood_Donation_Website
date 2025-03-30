@@ -7,16 +7,22 @@ dotenv.config();
 
 const sendOrderApprovalEmail = async () => {
   const orders = await Order.find({ status: 0 });
+  const RATE_PER_UNIT = 1300; // Updated to Rs. 1300 per unit
 
   if (orders.length > 0) {
     for (let order of orders) {
+      // Calculate total cost
+      const totalCost = order.units * RATE_PER_UNIT;
+
       ejs.renderFile(
         "templates/BloodDonationOrderApproval.ejs",
         {
           name: order.name,
           bloodType: order.bloodType,
           units: order.units,
-          urgency: order.urgency
+          urgency: order.urgency,
+          ratePerUnit: RATE_PER_UNIT,
+          totalCost: totalCost
         },
         async (err, data) => {
           let messageoption = {

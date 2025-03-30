@@ -5,6 +5,7 @@ const {
    getAllProspects,
    getOneProspect,
    deleteProspect,
+   checkDuplicate,
   } = require("../controllers/prospects");
 
 // ADD PROSPECT
@@ -21,5 +22,7 @@ router.get("/find/:id", getOneProspect);
 // DELETE PROSPECT
 
 router.delete("/:id", deleteProspect);
+
+router.get("/check-duplicate", checkDuplicate);
 
 module.exports=router;
