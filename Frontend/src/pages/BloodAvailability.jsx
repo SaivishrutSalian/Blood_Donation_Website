@@ -11,7 +11,7 @@ const BloodAvailability = () => {
   useEffect(() => {
     const fetchDonors = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/v1/donors");
+        const response = await fetch("https://lifesource.onrender.com/api/v1/donors");
         if (!response.ok) {
           throw new Error("Failed to fetch donor availability data");
         }
