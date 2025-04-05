@@ -77,12 +77,6 @@ const Login = () => {
             </button>
             {error && <span style={{color:'red'}}>Please ensure that your staff ID and password are entered correctly before attempting to log in. Double-check your credentials and try again.</span>}
           </form>
-          <div className="mt-4 text-sm text-gray-600">
-            <span>Don`t have an account? </span>
-            <a href="#" className="text-red-500 hover:underline">
-              Sign up
-            </a>
-          </div>
         </div>
       </div>
     </div>

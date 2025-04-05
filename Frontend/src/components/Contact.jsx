@@ -180,6 +180,24 @@ const Contact = () => {
     }
 
     try {
+      // Check for duplicates in prospects database
+      const prospectResponse = await publicRequest.get('/prospects/check-duplicate', {
+        params: {
+          email: orderInputs.email,
+          tel: orderInputs.tel,
+          name: orderInputs.name
+        }
+      });
+
+      // Check for duplicates in donors database
+      const donorResponse = await publicRequest.get('/donors/check-duplicate', {
+        params: {
+          email: orderInputs.email,
+          tel: orderInputs.tel,
+          name: orderInputs.name
+        }
+      });
+
       // Check for duplicates in orders database
       const orderResponse = await publicRequest.get('/orders/check-duplicate', {
         params: {
@@ -188,6 +206,16 @@ const Contact = () => {
           name: orderInputs.name
         }
       });
+
+      if (prospectResponse.data.exists) {
+        toast.error("This information matches with a registered prospect donor.");
+        return;
+      }
+
+      if (donorResponse.data.exists) {
+        toast.error("This information matches with a registered donor.");
+        return;
+      }
 
       if (orderResponse.data.exists) {
         toast.error("You already have a pending blood order request.");
