@@ -179,62 +179,51 @@ const Contact = () => {
       return;
     }
 
+    // In handleAddOrder function, update the duplicate checking section:
     try {
-      // Check for duplicates in prospects database
-      const prospectResponse = await publicRequest.get('/prospects/check-duplicate', {
-        params: {
-          email: orderInputs.email,
-          tel: orderInputs.tel,
-          name: orderInputs.name
-        }
+    // Check for duplicates in orders database first
+    const orderResponse = await publicRequest.get('/orders/check-duplicate', {
+    params: {
+    email: orderInputs.email,
+    tel: orderInputs.tel
+    }
+    });
+    
+    // Check for duplicates in prospects and donors
+    const [prospectResponse, donorResponse] = await Promise.all([
+    publicRequest.get('/prospects/check-duplicate', {
+    params: {
+    email: orderInputs.email,
+    tel: orderInputs.tel
+    }
+    }),
+    publicRequest.get('/donors/check-duplicate', {
+    params: {
+    email: orderInputs.email,
+    tel: orderInputs.tel
+    }
+    })
+    ]);
+    
+    if (orderResponse.data.exists || prospectResponse.data.exists || donorResponse.data.exists) {
+    toast.error("This contact information is already registered in our system.");
+    return;
+    }
+    
+    const res = await publicRequest.post("/orders", orderInputs);
+    if (res.data) {
+      toast.success("Your blood order request has been submitted successfully.");
+      setOrderInputs({
+        name: "",
+        email: "",
+        tel: "",
+        bloodType: "",
+        units: "",
+        urgency: "",
+        date: new Date().toISOString().split('T')[0],
+        status: "pending"
       });
-
-      // Check for duplicates in donors database
-      const donorResponse = await publicRequest.get('/donors/check-duplicate', {
-        params: {
-          email: orderInputs.email,
-          tel: orderInputs.tel,
-          name: orderInputs.name
-        }
-      });
-
-      // Check for duplicates in orders database
-      const orderResponse = await publicRequest.get('/orders/check-duplicate', {
-        params: {
-          email: orderInputs.email,
-          tel: orderInputs.tel
-        }
-      });
-
-      if (prospectResponse.data.exists) {
-        toast.error("As a registered prospect donor, you cannot request blood. Please wait for your donation process to complete.");
-        return;
-      }
-
-      if (donorResponse.data.exists) {
-        toast.error("As a registered donor, you cannot request blood at this time.");
-        return;
-      }
-
-      if (orderResponse.data.exists) {
-        toast.error("You already have a pending blood order request.");
-        return;
-      }
-
-      const res = await publicRequest.post("/orders", orderInputs);
-      if (res.data) {
-        toast.success("Your blood order request has been submitted successfully.");
-        setOrderInputs({
-          name: "",
-          email: "",
-          tel: "",
-          bloodType: "",
-          units: "",
-          urgency: "",
-          date: new Date().toISOString().split('T')[0],
-          status: "pending"
-        });
-      }
+    }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
     }
