@@ -7,6 +7,7 @@ import { publicRequest } from '../requestMethods';
 const Prospects = () => {
   const [prospects, setProspects] = useState([]);
 
+  // In the columns configuration
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     { 
@@ -24,7 +25,16 @@ const Prospects = () => {
     },
     { field: "email", headerName: "Email", width: 220 },
     { field: "address", headerName: "Address", width: 200 },
-    { field: "bloodgroup", headerName: "Blood Type", width: 130 },
+    { 
+      field: "bloodgroup", // Changed to match other components
+      headerName: "Blood Type", 
+      width: 130,
+      renderCell: (params) => (
+        <div className="font-semibold">
+          {params.row.bloodgroup}
+        </div>
+      )
+    },
     { field: "diseases", headerName: "Medical Conditions", width: 200 },
     {
       field: "actions",

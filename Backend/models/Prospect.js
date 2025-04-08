@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
-const ProspectSchema= mongoose.Schema(
+const ProspectSchema = mongoose.Schema(
   {
     name: { type: String, require: true },
     email: { type: String, require: true },
     address:{type:String},
     tel:{type:String},
-    bloodgroup:{type:String},
+    bloodGroup: { // Changed from "bloodgroup" to match frontend
+      type: String,
+      required: true
+    },
     weight:{type:Number},
     date:{type:String},
     diseases:{type:String},

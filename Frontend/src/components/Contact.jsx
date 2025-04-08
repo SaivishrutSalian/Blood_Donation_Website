@@ -128,19 +128,30 @@ const Contact = () => {
         return;
       }
 
-      // If no duplicates found, proceed with registration
-      await publicRequest.post("/prospects", inputs);
-      toast.success("You have been successfully saved to the database.");
-      setInputs({
-        name: "",
-        tel: "",
-        email: "",
-        address: "",
-        weight: "",
-        bloodGroup: "",
-        age: "",
-        diseases: "",
-      });
+      // In handleAddProspect function, verify the bloodGroup is being properly handled
+      try {
+        // If no duplicates found, proceed with registration
+        const response = await publicRequest.post("/prospects", {
+          ...inputs,
+          bloodgroup: inputs.bloodGroup // Convert to match backend field name
+        });
+        
+        if (response.data) {
+          toast.success("You have been successfully saved to the database.");
+          setInputs({
+            name: "",
+            tel: "",
+            email: "",
+            address: "",
+            weight: "",
+            bloodGroup: "", // Reset blood group as well
+            age: "",
+            diseases: "",
+          });
+        }
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
     }
@@ -345,6 +356,7 @@ const Contact = () => {
                     value={inputs.bloodGroup}
                     className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 outline-none bg-white"
                     onChange={handleChange}
+                    required
                   >
                     <option value="">Select Blood Group</option>
                     <option value="A+">A+</option>
