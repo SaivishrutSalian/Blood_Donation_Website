@@ -81,16 +81,16 @@ const deleteDonor = async (req, res) => {
   // Add this new controller function
   const checkDuplicate = async (req, res) => {
     try {
-      const { email, tel, name } = req.query;
+      const { email, tel } = req.query;
       
+      // Only check for email and phone number matches
       const existingDonor = await Donor.findOne({
         $or: [
           { email: email },
-          { tel: tel },
-          { name: name }
+          { tel: tel }
         ]
       });
-
+  
       return res.status(200).json({
         exists: !!existingDonor,
         message: existingDonor ? 'Duplicate donor found' : 'No duplicate found'

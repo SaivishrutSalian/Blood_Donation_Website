@@ -202,18 +202,17 @@ const Contact = () => {
       const orderResponse = await publicRequest.get('/orders/check-duplicate', {
         params: {
           email: orderInputs.email,
-          tel: orderInputs.tel,
-          name: orderInputs.name
+          tel: orderInputs.tel
         }
       });
 
       if (prospectResponse.data.exists) {
-        toast.error("This information matches with a registered prospect donor.");
+        toast.error("As a registered prospect donor, you cannot request blood. Please wait for your donation process to complete.");
         return;
       }
 
       if (donorResponse.data.exists) {
-        toast.error("This information matches with a registered donor.");
+        toast.error("As a registered donor, you cannot request blood at this time.");
         return;
       }
 
@@ -355,7 +354,7 @@ const Contact = () => {
                   <select
                     name="bloodGroup"
                     value={inputs.bloodGroup}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 outline-none appearance-none bg-white"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 outline-none bg-white"
                     onChange={handleChange}
                   >
                     <option value="">Select Blood Group</option>
