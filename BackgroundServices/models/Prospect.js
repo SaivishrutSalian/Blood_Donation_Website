@@ -17,5 +17,4 @@ const ProspectSchema= mongoose.Schema(
     timestamp: true,
   }
 );
-
 module.exports = mongoose.model("Prospect", ProspectSchema);
