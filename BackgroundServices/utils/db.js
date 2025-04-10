@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-
 // DB
 const DB = process.env.DB;
 
